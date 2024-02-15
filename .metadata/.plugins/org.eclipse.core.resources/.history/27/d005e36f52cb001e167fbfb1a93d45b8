@@ -1,0 +1,9 @@
+package SwingComponents;
+
+import javax.swing.JPanel;
+
+public class JPanelMitBackground extends JPanel{
+
+	
+	
+}
