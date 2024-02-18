@@ -1,0 +1,37 @@
+package swingPanels;
+
+import java.io.IOException;
+
+import javax.swing.JPanel;
+
+public class LocationPanel {
+
+	private static final long serialVersionUID = 1L;
+	
+	public static JPanel locationPanel;
+	
+	public LocationPanel(String country, String city) 
+	{
+		locationPanel = generateLocationPanel(country, city);
+	}
+	
+	
+	private JPanel generateLocationPanel(String country, String city) {
+		
+		JPanel locationPanel = null;
+		
+		try {
+			locationPanel = new JPanelMitBackground("! Path missing");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return locationPanel;
+	}
+	
+	
+
+}
