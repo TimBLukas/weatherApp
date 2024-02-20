@@ -8,16 +8,21 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 import swingPanels.SearchPanel;
+import swingPanels.LocationPanel;
+import weatherInformation.weatherInformation;
 
 public class MainFrame extends JFrame {
 
@@ -85,10 +90,51 @@ public class MainFrame extends JFrame {
 		headPanel.add(titleLabel);
 		
 		try {
-			mainPanel_1 = new SearchPanel();
+			mainPanel_1 = new SearchPanel(contentPane, mainPanel_1);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}		
+		}
+		
+		((SearchPanel) mainPanel_1).getSearchButton().addActionListener(e -> {
+			
+			String country = null;
+			
+			if(mainPanel_1 instanceof SearchPanel && (String) ((SearchPanel) mainPanel_1).getCountrySelector().getSelectedItem() != null) {
+				country = (String) ((SearchPanel) mainPanel_1).getCountrySelector().getSelectedItem();
+			}
+			
+			String city = null;
+			
+			if (mainPanel_1 instanceof SearchPanel) city = ((SearchPanel) mainPanel_1).getsearchBar_TF().getText();
+			
+			JPanel locationPanel = null;
+			if(country != null && city != null) {
+				
+				locationPanel = createLocationPanel(country, city);
+	
+			}else {
+				JOptionPane.showMessageDialog(null, "Bitte geben sie ein Land und eine Stadt ein", "ERROR", JOptionPane.ERROR_MESSAGE);
+			}
+			
+			if(locationPanel != null) {
+				// Entfernt das vorhandene SearchPanel aus dem ContentPane
+			    contentPane.remove(mainPanel_1);
+				
+				mainPanel_1 = locationPanel;
+				
+				 // Fügt das neue Panel dem ContentPane hinzu
+			    contentPane.add(mainPanel_1, BorderLayout.CENTER);
+			    
+				// Aktualisiert die Anzeige des ContentPane
+			    contentPane.revalidate();
+			    contentPane.repaint();
+			    
+			}else {
+				JOptionPane.showMessageDialog(null, "Fehler beim Laden", "ERROR", JOptionPane.ERROR_MESSAGE);
+			}
+			
+		});
+		
 		mainPanel_1.setBorder(new MatteBorder(1, 1, 1, 0, (Color) new Color(0, 0, 0)));
 		contentPane.add(mainPanel_1, BorderLayout.CENTER);
 		
@@ -114,18 +160,36 @@ public class MainFrame extends JFrame {
 		
 	}
 	
-	private static JPanel createLocationPanel(String country, String city) {
+	private JPanel createLocationPanel(String country, String city) {
 		
-		JPanel locationPanel = new JPanel();
+		JPanel locationPanel = null;
+				
+		country = convertCountry(country);
 		
-		switch(country) {
-			case "Deutschland":
-				country = "DE";
-				break;
-			
-		}
+		Map<String, Object> weatherData= weatherInformation.getWeatherInformation(country, city);
+		
+		locationPanel = LocationPanel.generateLocationPanel(country, city, weatherData);
 		
 		return locationPanel;
+	}
+	
+	private String convertCountry(String country) {
+		String result;
+		
+		Map<String, String> countryPairs = new HashMap<>();
+		
+		countryPairs.put("Deutschland", "DE");
+		countryPairs.put("USA", "US");
+		countryPairs.put("England", "GB");
+		countryPairs.put("China", "CN");
+		countryPairs.put("Japan", "JP");
+		countryPairs.put("Indien", "IN");
+		countryPairs.put("Spanien", "ES");
+		countryPairs.put("Portugal", "PT");
+
+		return countryPairs.get(country);
+
+		
 	}
 
 }

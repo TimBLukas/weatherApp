@@ -19,45 +19,52 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 
 public class SearchPanel extends JPanelMitBackground {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField serachBar_TF;
+	private JTextField searchBar_TF;
 	private Image backgroundImage;
+	private JButton searchButton;
+	private JComboBox <String>countrySelector;
 
 	/**
 	 * Create the panel.
 	 * @throws IOException 
 	 */
-	public SearchPanel() throws IOException {
+	public SearchPanel(JPanel container, JPanel searchPanel) throws IOException {
 		
 		super("E:/Coding_Projects/WeatherApp/Images/MainPanelBackground_MainFrame.jpg");
 		
 		setLayout(new MigLayout("", "[][][][][grow][][][][][grow][][][][grow][][][][]", "[][][][][][grow]"));
 		
-		serachBar_TF = new JTextField();
-		serachBar_TF.setBackground(Color.BLACK);
-		serachBar_TF.setForeground(Color.WHITE);
-		serachBar_TF.setFont(new Font("Arial Black", Font.PLAIN, 13));
-		add(serachBar_TF, "cell 7 2 5 1,growx");
-		serachBar_TF.setColumns(10);
+		searchBar_TF = new JTextField();
+		searchBar_TF.setBackground(Color.BLACK);
+		searchBar_TF.setForeground(Color.WHITE);
+		searchBar_TF.setCaretColor(Color.WHITE);
+		searchBar_TF.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		add(searchBar_TF, "cell 7 2 5 1,growx");
+		searchBar_TF.setColumns(10);
 		
-		JComboBox <String>countrySelector = new JComboBox<>();
+		countrySelector = new JComboBox<>();
 		countrySelector.setBackground(Color.BLACK);
 		countrySelector.setForeground(Color.WHITE);
 		countrySelector.setModel(new DefaultComboBoxModel<String>(new String[] {"Deutschland", "USA", "England", "China", "Japan", "Indien", "Griechenland", "Italien", "Spanien", "Portugal"}));
 		countrySelector.setFont(new Font("Arial Black", Font.PLAIN, 13));
 		add(countrySelector, "cell 13 2,growx");
 		
-		JButton searchButton = new JButton("New button");
+		searchButton = new JButton("Search");
 		searchButton.setForeground(Color.WHITE);
 		searchButton.setBackground(Color.BLACK);
 		searchButton.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		
 		add(searchButton, "cell 15 2");
 		
 		JPanel popularLocation_panel = new JPanelMitBackground("E:/Coding_Projects/WeatherApp/Images/MainPanelBackground_MainFrame.jpg");
@@ -125,6 +132,32 @@ public class SearchPanel extends JPanelMitBackground {
 		gbc_rom_label.gridy = 6;
 		popularLocation_panel.add(rom_label, gbc_rom_label);
 		
+	}
+	
+	
+
+	public JTextField getsearchBar_TF() {
+		return searchBar_TF;
+	}
+
+	public void setsearchBar_TF(JTextField searchBar_TF) {
+		this.searchBar_TF = searchBar_TF;
+	}
+
+	public JButton getSearchButton() {
+		return searchButton;
+	}
+
+	public void setSearchButton(JButton searchButton) {
+		this.searchButton = searchButton;
+	}
+
+	public JComboBox<String> getCountrySelector() {
+		return countrySelector;
+	}
+
+	public void setCountrySelector(JComboBox<String> countrySelector) {
+		this.countrySelector = countrySelector;
 	}
 
 }

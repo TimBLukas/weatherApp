@@ -1,0 +1,197 @@
+package swingPanels;
+
+import javax.swing.JPanel;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import javax.swing.JTextField;
+import java.awt.Insets;
+import java.io.File;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
+
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+
+public class SearchPanel extends JPanelMitBackground {
+
+	private static final long serialVersionUID = 1L;
+	private JTextField serachBar_TF;
+	private Image backgroundImage;
+	private JButton searchButton;
+	private JComboBox <String>countrySelector;
+
+	/**
+	 * Create the panel.
+	 * @throws IOException 
+	 */
+	public SearchPanel(JPanel container, JPanel searchPanel) throws IOException {
+		
+		super("E:/Coding_Projects/WeatherApp/Images/MainPanelBackground_MainFrame.jpg");
+		
+		setLayout(new MigLayout("", "[][][][][grow][][][][][grow][][][][grow][][][][]", "[][][][][][grow]"));
+		
+		serachBar_TF = new JTextField();
+		serachBar_TF.setBackground(Color.BLACK);
+		serachBar_TF.setForeground(Color.WHITE);
+		serachBar_TF.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		add(serachBar_TF, "cell 7 2 5 1,growx");
+		serachBar_TF.setColumns(10);
+		
+		countrySelector = new JComboBox<>();
+		countrySelector.setBackground(Color.BLACK);
+		countrySelector.setForeground(Color.WHITE);
+		countrySelector.setModel(new DefaultComboBoxModel<String>(new String[] {"Deutschland", "USA", "England", "China", "Japan", "Indien", "Griechenland", "Italien", "Spanien", "Portugal"}));
+		countrySelector.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		add(countrySelector, "cell 13 2,growx");
+		
+		searchButton = new JButton("New button");
+		searchButton.setForeground(Color.WHITE);
+		searchButton.setBackground(Color.BLACK);
+		searchButton.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		
+		searchButton.addActionListener(e -> {
+			
+			String city = serachBar_TF.getText();
+			String country = (String) countrySelector.getSelectedItem();
+			
+			// Erzeugt das neue Panel mit der createLocationPanel-Methode
+		    JPanel locationPanel = createLocationPanel(country, city);
+		    
+		    // Entfernt das vorhandene SearchPanel aus dem ContentPane
+		    container.remove(searchPanel);
+		    
+		    // Fügt das neue Panel dem ContentPane hinzu
+		    container.add(locationPanel, BorderLayout.CENTER);
+		    
+		    // Aktualisiert die Anzeige des ContentPane
+		    container.revalidate();
+		    container.repaint();
+			
+		});
+		
+		add(searchButton, "cell 15 2");
+		
+		JPanel popularLocation_panel = new JPanelMitBackground("E:/Coding_Projects/WeatherApp/Images/MainPanelBackground_MainFrame.jpg");
+		popularLocation_panel.setBackground(Color.BLACK);
+		add(popularLocation_panel, "cell 4 5 10 1,grow");
+		GridBagLayout gbl_popularLocation_panel = new GridBagLayout();
+		gbl_popularLocation_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_popularLocation_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_popularLocation_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_popularLocation_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		popularLocation_panel.setLayout(gbl_popularLocation_panel);
+		
+		JLabel popularLocation_label = new JLabel("Beliebte Suchen:");
+		popularLocation_label.setForeground(Color.WHITE);
+		popularLocation_label.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		GridBagConstraints gbc_popularLocation_label = new GridBagConstraints();
+		gbc_popularLocation_label.anchor = GridBagConstraints.WEST;
+		gbc_popularLocation_label.gridwidth = 3;
+		gbc_popularLocation_label.insets = new Insets(0, 0, 5, 5);
+		gbc_popularLocation_label.gridx = 3;
+		gbc_popularLocation_label.gridy = 1;
+		popularLocation_panel.add(popularLocation_label, gbc_popularLocation_label);
+		
+		JLabel berlin_label = new JLabel("Berlin - Deutschland");
+		berlin_label.setForeground(Color.WHITE);
+		berlin_label.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		GridBagConstraints gbc_berlin_label = new GridBagConstraints();
+		gbc_berlin_label.anchor = GridBagConstraints.WEST;
+		gbc_berlin_label.insets = new Insets(0, 0, 5, 0);
+		gbc_berlin_label.gridwidth = 3;
+		gbc_berlin_label.gridx = 3;
+		gbc_berlin_label.gridy = 3;
+		popularLocation_panel.add(berlin_label, gbc_berlin_label);
+		
+		JLabel LA_label = new JLabel("Los Angeles - USA");
+		LA_label.setForeground(Color.WHITE);
+		LA_label.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		GridBagConstraints gbc_LA_label = new GridBagConstraints();
+		gbc_LA_label.anchor = GridBagConstraints.WEST;
+		gbc_LA_label.insets = new Insets(0, 0, 5, 0);
+		gbc_LA_label.gridwidth = 3;
+		gbc_LA_label.gridx = 3;
+		gbc_LA_label.gridy = 4;
+		popularLocation_panel.add(LA_label, gbc_LA_label);
+		
+		JLabel barcelona_label = new JLabel("Barcelona - Spanien");
+		barcelona_label.setForeground(Color.WHITE);
+		barcelona_label.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		GridBagConstraints gbc_barcelona_label = new GridBagConstraints();
+		gbc_barcelona_label.anchor = GridBagConstraints.WEST;
+		gbc_barcelona_label.insets = new Insets(0, 0, 5, 0);
+		gbc_barcelona_label.gridwidth = 3;
+		gbc_barcelona_label.gridx = 3;
+		gbc_barcelona_label.gridy = 5;
+		popularLocation_panel.add(barcelona_label, gbc_barcelona_label);
+		
+		JLabel rom_label = new JLabel("Rom - Italien");
+		rom_label.setForeground(Color.WHITE);
+		rom_label.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		GridBagConstraints gbc_rom_label = new GridBagConstraints();
+		gbc_rom_label.anchor = GridBagConstraints.WEST;
+		gbc_rom_label.gridwidth = 3;
+		gbc_rom_label.insets = new Insets(0, 0, 0, 5);
+		gbc_rom_label.gridx = 3;
+		gbc_rom_label.gridy = 6;
+		popularLocation_panel.add(rom_label, gbc_rom_label);
+		
+	}
+	
+	
+	private static JPanel createLocationPanel(String country, String city) {
+		
+		JPanel locationPanel = new JPanel();
+		
+		switch(country) {
+			case "Deutschland":
+				country = "DE";
+				break;
+			
+		}
+		
+		return locationPanel;
+	}
+	
+	
+
+	public JTextField getSerachBar_TF() {
+		return serachBar_TF;
+	}
+
+	public void setSerachBar_TF(JTextField serachBar_TF) {
+		this.serachBar_TF = serachBar_TF;
+	}
+
+	public JButton getSearchButton() {
+		return searchButton;
+	}
+
+	public void setSearchButton(JButton searchButton) {
+		this.searchButton = searchButton;
+	}
+
+	public JComboBox<String> getCountrySelector() {
+		return countrySelector;
+	}
+
+	public void setCountrySelector(JComboBox<String> countrySelector) {
+		this.countrySelector = countrySelector;
+	}
+
+}
