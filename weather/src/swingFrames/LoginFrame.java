@@ -1,6 +1,7 @@
 package swingFrames;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -49,7 +50,7 @@ public class LoginFrame extends JFrame {
 		
 		try {
 			
-			contentPane = new JPanelMitBackground("C:/Studium/ProgrammierenProjekte/WeatherApp/Images/LoginBackground.jpg");
+			contentPane = new JPanelMitBackground("E:/Coding_Projects/WeatherApp/Images/LoginBackground.jpg");
 			
 		} catch (IOException e) {
 			
@@ -68,7 +69,7 @@ public class LoginFrame extends JFrame {
 		
 		try {
 			
-			MainPanel = new JPanelMitBackground("C:/Studium/ProgrammierenProjekte/WeatherApp/Images/LoginBackground.jpg");
+			MainPanel = new JPanelMitBackground("E:/Coding_Projects/WeatherApp/Images/LoginBackground.jpg");
 			
 		} catch (IOException e) {
 			
@@ -114,7 +115,7 @@ public class LoginFrame extends JFrame {
 		
 		JPanel headPanel = null;
 		try {
-			headPanel = new JPanelMitBackground("C:/Studium/ProgrammierenProjekte/WeatherApp/Images/LoginBackground.jpg");
+			headPanel = new JPanelMitBackground("E:/Coding_Projects/WeatherApp/Images/LoginBackground.jpg");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

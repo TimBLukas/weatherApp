@@ -1,103 +1,130 @@
 package swingPanels;
 
-import java.awt.Color;
+import javax.swing.JPanel;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import javax.swing.JTextField;
 import java.awt.Insets;
-import java.io.IOException;
+import java.io.File;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
+
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.awt.Color;
 
-import swingPanels.JPanelMitBackground;
+public class SearchPanel extends JPanelMitBackground {
 
+	private static final long serialVersionUID = 1L;
+	private JTextField serachBar_TF;
+	private Image backgroundImage;
 
-public class SearchPanel {
-	
-	
-	public static JPanel generateSearchPanel() {
+	/**
+	 * Create the panel.
+	 * @throws IOException 
+	 */
+	public SearchPanel() throws IOException {
 		
-		JPanel searchPanel = null;
+		super("E:/Coding_Projects/WeatherApp/Images/MainPanelBackground_MainFrame.jpg");
 		
-		try {
-			
-			searchPanel = new JPanelMitBackground("C:/Studium/ProgrammierenProjekte/WeatherApp/Images/MainPanelBackground_MainFrame.jpg");
-			
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-			
-		}
+		setLayout(new MigLayout("", "[][][][][grow][][][][][grow][][][][grow][][][][]", "[][][][][][grow]"));
 		
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		searchPanel.setLayout(gridBagLayout);
+		serachBar_TF = new JTextField();
+		serachBar_TF.setBackground(Color.BLACK);
+		serachBar_TF.setForeground(Color.WHITE);
+		serachBar_TF.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		add(serachBar_TF, "cell 7 2 5 1,growx");
+		serachBar_TF.setColumns(10);
 		
-		JTextField searchBar_Tf = new JTextField();
-		searchBar_Tf.setFont(new Font("Arial Black", Font.PLAIN, 12));
-		GridBagConstraints gbc_searchBar_Tf = new GridBagConstraints();
-		gbc_searchBar_Tf.gridwidth = 4;
-		gbc_searchBar_Tf.insets = new Insets(0, 0, 5, 5);
-		gbc_searchBar_Tf.fill = GridBagConstraints.HORIZONTAL;
-		gbc_searchBar_Tf.gridx = 4;
-		gbc_searchBar_Tf.gridy = 3;
-		searchPanel.add(searchBar_Tf, gbc_searchBar_Tf);
-		searchBar_Tf.setColumns(10);
+		JComboBox <String>countrySelector = new JComboBox<>();
+		countrySelector.setBackground(Color.BLACK);
+		countrySelector.setForeground(Color.WHITE);
+		countrySelector.setModel(new DefaultComboBoxModel<String>(new String[] {"Deutschland", "USA", "England", "China", "Japan", "Indien", "Griechenland", "Italien", "Spanien", "Portugal"}));
+		countrySelector.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		add(countrySelector, "cell 13 2,growx");
 		
 		JButton searchButton = new JButton("New button");
-		searchButton.setFont(new Font("Arial Black", Font.PLAIN, 12));
-		GridBagConstraints gbc_searchButton = new GridBagConstraints();
-		gbc_searchButton.insets = new Insets(0, 0, 5, 5);
-		gbc_searchButton.gridx = 9;
-		gbc_searchButton.gridy = 3;
-		searchPanel.add(searchButton, gbc_searchButton);
+		searchButton.setForeground(Color.WHITE);
+		searchButton.setBackground(Color.BLACK);
+		searchButton.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		add(searchButton, "cell 15 2");
 		
-		JLabel subTitle_popularLoc_label = new JLabel("beliebte Standorte:");
-		subTitle_popularLoc_label.setForeground(Color.white);
-		subTitle_popularLoc_label.setFont(new Font("Arial Black", Font.PLAIN, 12));
-		GridBagConstraints gbc_subTitle_popularLoc_label = new GridBagConstraints();
-		gbc_subTitle_popularLoc_label.insets = new Insets(0, 0, 5, 5);
-		gbc_subTitle_popularLoc_label.gridx = 5;
-		gbc_subTitle_popularLoc_label.gridy = 6;
-		searchPanel.add(subTitle_popularLoc_label, gbc_subTitle_popularLoc_label);
+		JPanel popularLocation_panel = new JPanelMitBackground("E:/Coding_Projects/WeatherApp/Images/MainPanelBackground_MainFrame.jpg");
+		popularLocation_panel.setBackground(Color.BLACK);
+		add(popularLocation_panel, "cell 4 5 10 1,grow");
+		GridBagLayout gbl_popularLocation_panel = new GridBagLayout();
+		gbl_popularLocation_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_popularLocation_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_popularLocation_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_popularLocation_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		popularLocation_panel.setLayout(gbl_popularLocation_panel);
+		
+		JLabel popularLocation_label = new JLabel("Beliebte Suchen:");
+		popularLocation_label.setForeground(Color.WHITE);
+		popularLocation_label.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		GridBagConstraints gbc_popularLocation_label = new GridBagConstraints();
+		gbc_popularLocation_label.anchor = GridBagConstraints.WEST;
+		gbc_popularLocation_label.gridwidth = 3;
+		gbc_popularLocation_label.insets = new Insets(0, 0, 5, 5);
+		gbc_popularLocation_label.gridx = 3;
+		gbc_popularLocation_label.gridy = 1;
+		popularLocation_panel.add(popularLocation_label, gbc_popularLocation_label);
+		
+		JLabel berlin_label = new JLabel("Berlin - Deutschland");
+		berlin_label.setForeground(Color.WHITE);
+		berlin_label.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		GridBagConstraints gbc_berlin_label = new GridBagConstraints();
+		gbc_berlin_label.anchor = GridBagConstraints.WEST;
+		gbc_berlin_label.insets = new Insets(0, 0, 5, 0);
+		gbc_berlin_label.gridwidth = 3;
+		gbc_berlin_label.gridx = 3;
+		gbc_berlin_label.gridy = 3;
+		popularLocation_panel.add(berlin_label, gbc_berlin_label);
 		
 		JLabel LA_label = new JLabel("Los Angeles - USA");
-		LA_label.setForeground(Color.white);
-		LA_label.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		LA_label.setForeground(Color.WHITE);
+		LA_label.setFont(new Font("Arial Black", Font.PLAIN, 13));
 		GridBagConstraints gbc_LA_label = new GridBagConstraints();
-		gbc_LA_label.insets = new Insets(0, 0, 5, 5);
-		gbc_LA_label.gridx = 5;
-		gbc_LA_label.gridy = 7;
-		searchPanel.add(LA_label, gbc_LA_label);
+		gbc_LA_label.anchor = GridBagConstraints.WEST;
+		gbc_LA_label.insets = new Insets(0, 0, 5, 0);
+		gbc_LA_label.gridwidth = 3;
+		gbc_LA_label.gridx = 3;
+		gbc_LA_label.gridy = 4;
+		popularLocation_panel.add(LA_label, gbc_LA_label);
 		
-		JLabel london_label = new JLabel("London - UK");
-		london_label.setForeground(Color.white);
-		london_label.setFont(new Font("Arial Black", Font.PLAIN, 11));
-		GridBagConstraints gbc_london_label = new GridBagConstraints();
-		gbc_london_label.insets = new Insets(0, 0, 5, 5);
-		gbc_london_label.gridx = 5;
-		gbc_london_label.gridy = 8;
-		searchPanel.add(london_label, gbc_london_label);
+		JLabel barcelona_label = new JLabel("Barcelona - Spanien");
+		barcelona_label.setForeground(Color.WHITE);
+		barcelona_label.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		GridBagConstraints gbc_barcelona_label = new GridBagConstraints();
+		gbc_barcelona_label.anchor = GridBagConstraints.WEST;
+		gbc_barcelona_label.insets = new Insets(0, 0, 5, 0);
+		gbc_barcelona_label.gridwidth = 3;
+		gbc_barcelona_label.gridx = 3;
+		gbc_barcelona_label.gridy = 5;
+		popularLocation_panel.add(barcelona_label, gbc_barcelona_label);
 		
-		JLabel stuttgart_label = new JLabel("Stuttgart - Germany");
-		stuttgart_label.setForeground(Color.white);
-		stuttgart_label.setFont(new Font("Arial Black", Font.PLAIN, 11));
-		GridBagConstraints gbc_stuttgart_label = new GridBagConstraints();
-		gbc_stuttgart_label.insets = new Insets(0, 0, 0, 5);
-		gbc_stuttgart_label.gridx = 5;
-		gbc_stuttgart_label.gridy = 9;
-		searchPanel.add(stuttgart_label, gbc_stuttgart_label);
+		JLabel rom_label = new JLabel("Rom - Italien");
+		rom_label.setForeground(Color.WHITE);
+		rom_label.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		GridBagConstraints gbc_rom_label = new GridBagConstraints();
+		gbc_rom_label.anchor = GridBagConstraints.WEST;
+		gbc_rom_label.gridwidth = 3;
+		gbc_rom_label.insets = new Insets(0, 0, 0, 5);
+		gbc_rom_label.gridx = 3;
+		gbc_rom_label.gridy = 6;
+		popularLocation_panel.add(rom_label, gbc_rom_label);
 		
-		
-		
-		return searchPanel;
 	}
-	
 
 }

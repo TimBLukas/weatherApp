@@ -7,7 +7,9 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.io.IOException;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,6 +23,7 @@ public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JPanel mainPanel_1;
 
 	/**
 	 * Launch the application.
@@ -59,15 +62,17 @@ public class MainFrame extends JFrame {
 		sidePanel.setLayout(new GridLayout(15, 1, 0, 5));
 		sidePanel.setBackground(Color.black);
 		
-		JButton search_button = new JButton("Location 1");
-		search_button.setBackground(Color.BLACK);
-		search_button.setForeground(Color.WHITE);
-		search_button.setFont(new Font("Arial Black", Font.PLAIN, 13));
-		sidePanel.add(search_button);
+		JButton location1_button = new JButton("Location 1");
+		location1_button.setBackground(Color.BLACK);
+		location1_button.setForeground(Color.WHITE);
+		location1_button.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		sidePanel.add(location1_button);
 		
-		JButton btnNewButton_1 = new JButton("Location 2");
-		btnNewButton_1.setFont(new Font("Arial Black", Font.PLAIN, 13));
-		sidePanel.add(btnNewButton_1);
+		JButton location2_button = new JButton("Location 2");
+		location2_button.setBackground(Color.BLACK);
+		location2_button.setForeground(Color.WHITE);
+		location2_button.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		sidePanel.add(location2_button);
 		
 		JPanel headPanel = new JPanel();
 		headPanel.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
@@ -79,9 +84,11 @@ public class MainFrame extends JFrame {
 		titleLabel.setForeground(Color.white);
 		headPanel.add(titleLabel);
 		
-		JPanel mainPanel_1 = SearchPanel.generateSearchPanel();
-		
-		
+		try {
+			mainPanel_1 = new SearchPanel();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
 		mainPanel_1.setBorder(new MatteBorder(1, 1, 1, 0, (Color) new Color(0, 0, 0)));
 		contentPane.add(mainPanel_1, BorderLayout.CENTER);
 		
@@ -105,6 +112,20 @@ public class MainFrame extends JFrame {
 		bottomPanel.add(logoutButton, gbc_logoutButton);
 		
 		
+	}
+	
+	private static JPanel createLocationPanel(String country, String city) {
+		
+		JPanel locationPanel = new JPanel();
+		
+		switch(country) {
+			case "Deutschland":
+				country = "DE";
+				break;
+			
+		}
+		
+		return locationPanel;
 	}
 
 }

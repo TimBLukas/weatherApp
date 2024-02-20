@@ -1,5 +1,6 @@
 package swingPanels;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
 
@@ -21,24 +22,31 @@ public class LocationPanel {
 	}
 	
 	
-	private JPanel generateLocationPanel(String country, String city) {
+	public static JPanel generateLocationPanel(String country, String city) {
 		
 		JPanel locationPanel = null;
 		
 		try {
-			locationPanel = new JPanelMitBackground("! Path missing");
+			locationPanel = new JPanelMitBackground("E:/Coding_Projects/WeatherApp/Images/MainPanelBackground_MainFrame.jpg");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		JPanel weatherInformation_panel = new JPanel();
+		weatherInformation_panel.setBackground(new Color(169, 169, 169));
 		
 		JLabel locationName_label = new JLabel("New label");
+		locationName_label.setFont(new Font("Arial Black", Font.PLAIN, 20));
+		locationName_label.setForeground(Color.WHITE);
 		locationName_label.setFont(new Font("Arial Black", Font.PLAIN, 20));
 		
 		JLabel weatherImage_label = new JLabel("weatherImage");
 		weatherImage_label.setFont(new Font("Arial", Font.PLAIN, 11));
+		weatherImage_label.setForeground(Color.WHITE);
+		weatherImage_label.setFont(new Font("Arial", Font.PLAIN, 11));
+		
+		
 		GroupLayout groupLayout = new GroupLayout(locationPanel);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

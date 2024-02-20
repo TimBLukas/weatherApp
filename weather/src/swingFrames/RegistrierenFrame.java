@@ -47,7 +47,7 @@ public class RegistrierenFrame extends JFrame {
 		setBounds(100, 100, 310, 386);
 		
 		try {
-			contentPane = new JPanelMitBackground("C:/Studium/ProgrammierenProjekte/WeatherApp/Images/LoginBackground.jpg");
+			contentPane = new JPanelMitBackground("E:/Coding_Projects/WeatherApp/Images/LoginBackground.jpg");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,7 +61,7 @@ public class RegistrierenFrame extends JFrame {
 		
 		JPanel headPanel = null;
 		try {
-			headPanel = new JPanelMitBackground("C:/Studium/ProgrammierenProjekte/WeatherApp/Images/LoginBackground.jpg");
+			headPanel = new JPanelMitBackground("E:/Coding_Projects/WeatherApp/Images/LoginBackground.jpg");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,7 +75,7 @@ public class RegistrierenFrame extends JFrame {
 		
 		JPanel mainPanel = null;
 		try {
-			mainPanel = new JPanelMitBackground("C:/Studium/ProgrammierenProjekte/WeatherApp/Images/LoginBackground.jpg");
+			mainPanel = new JPanelMitBackground("E:/Coding_Projects/WeatherApp/Images/LoginBackground.jpg");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
