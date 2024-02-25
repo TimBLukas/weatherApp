@@ -18,6 +18,11 @@ import com.google.gson.reflect.*;
 
 public class weatherInformation {
 
+	/**
+	 * convert a json String to a HashMap
+	 * @param str json String that is supposed to be converted
+	 * @return a HashMap representing the json String
+	 */
 	 public static Map<String, Object> jsonToMap(String str) 
 	 {
 		 
@@ -31,7 +36,13 @@ public class weatherInformation {
 	        		);
 	   
 	 }
-	 
+	
+	 /**
+	  * a method to get the weather information of a specific city using the openweathermap API
+	  * @param country the country the city is located in
+	  * @param city the city for which the weather data is to be evaluated
+	  * @return a Map containing the weatherInfomation for the city
+	  */
 	public static Map <String, Object> getWeatherInformation(String country, String city){
 		
 		// Datei auslesen um auf den API Key zugreifen zu können
@@ -115,11 +126,11 @@ public class weatherInformation {
 		}catch(IOException ioException) 
 		{
 			System.out.println(ioException.getMessage());
-			System.out.println("hallo");
+
 		}catch(Exception exception) 
 		{
 			System.out.println(exception.getMessage());
-			System.out.println("hallo2");
+
 		}
 		
 		return weatherData;

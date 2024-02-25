@@ -8,6 +8,12 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+/**
+ * a class creating a JPanel with a background image
+ * 
+ * @author TBL
+ * @version 1.0
+ */
 public class JPanelMitBackground extends JPanel {
 
 	private static final long serialVersionUID = 1L;

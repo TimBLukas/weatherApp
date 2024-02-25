@@ -7,6 +7,9 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
+
+import Objects.CommonConstants;
+
 import java.awt.Insets;
 import java.io.File;
 
@@ -27,6 +30,12 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
+/**
+ * a panel to search for a city you want to have weatherinformation for
+ * 
+ * @author TBL
+ * @version 1.0
+ */
 public class SearchPanel extends JPanelMitBackground {
 
 	private static final long serialVersionUID = 1L;
@@ -39,9 +48,9 @@ public class SearchPanel extends JPanelMitBackground {
 	 * Create the panel.
 	 * @throws IOException 
 	 */
-	public SearchPanel(JPanel container, JPanel searchPanel) throws IOException {
+	public SearchPanel() throws IOException {
 		
-		super("E:/Coding_Projects/WeatherApp/Images/MainPanelBackground_MainFrame.jpg");
+		super(CommonConstants.MAINBACKGROUND);
 		
 		setLayout(new MigLayout("", "[][][][][grow][][][][][grow][][][][grow][][][][]", "[][][][][][grow]"));
 		
@@ -67,7 +76,7 @@ public class SearchPanel extends JPanelMitBackground {
 		
 		add(searchButton, "cell 15 2");
 		
-		JPanel popularLocation_panel = new JPanelMitBackground("E:/Coding_Projects/WeatherApp/Images/MainPanelBackground_MainFrame.jpg");
+		JPanel popularLocation_panel = new JPanelMitBackground(CommonConstants.MAINBACKGROUND);
 		popularLocation_panel.setBackground(Color.BLACK);
 		add(popularLocation_panel, "cell 4 5 10 1,grow");
 		GridBagLayout gbl_popularLocation_panel = new GridBagLayout();

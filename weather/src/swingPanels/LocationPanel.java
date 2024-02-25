@@ -10,6 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import Objects.CommonConstants;
+
 import javax.swing.JCheckBox;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -32,7 +35,7 @@ public class LocationPanel {
 		JPanel locationPanel = null;
 		
 		try {
-			locationPanel = new JPanelMitBackground("E:/Coding_Projects/WeatherApp/Images/MainPanelBackground_MainFrame.jpg");
+			locationPanel = new JPanelMitBackground(CommonConstants.MAINBACKGROUND);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -101,14 +104,14 @@ public class LocationPanel {
 		try {
 			temperature = weatherInformation.get("current temp");
 			feelsLike = weatherInformation.get("feels_like");
-			windSpeed = weatherInformation.get("speed");
+			windSpeed = weatherInformation.get("wind Speed");
 		}catch(Exception exception) {
 			
 			System.out.println(exception.getMessage());
 			
 		}
 		
-		JLabel temprature_label = new JLabel("Temperature:"+ "\t" + temperature);
+		JLabel temprature_label = new JLabel("Temperature: "+ "\t" + temperature + " °C");
 		temprature_label.setForeground(Color.WHITE);
 		temprature_label.setFont(new Font("Arial Black", Font.PLAIN, 13));
 		GridBagConstraints gbc_temprature_label = new GridBagConstraints();
@@ -118,7 +121,7 @@ public class LocationPanel {
 		gbc_temprature_label.gridy = 1;
 		weatherInformation_panel.add(temprature_label, gbc_temprature_label);
 		
-		JLabel feelsLike_label = new JLabel("Feels Like:"+ "\t" + feelsLike);
+		JLabel feelsLike_label = new JLabel("Feels Like: "+ "\t" + feelsLike + " °C");
 		feelsLike_label.setForeground(Color.WHITE);
 		feelsLike_label.setFont(new Font("Arial Black", Font.PLAIN, 13));
 		GridBagConstraints gbc_feelsLike_label = new GridBagConstraints();
@@ -128,7 +131,8 @@ public class LocationPanel {
 		gbc_feelsLike_label.gridy = 2;
 		weatherInformation_panel.add(feelsLike_label, gbc_feelsLike_label);
 		
-		JLabel windSpeed_label = new JLabel("Wind Speed: " + "\t" + (String)windSpeed);
+		
+		JLabel windSpeed_label = new JLabel("Wind Speed: " + "\t" + windSpeed + " km/h");
 		windSpeed_label.setForeground(Color.WHITE);
 		windSpeed_label.setFont(new Font("Arial Black", Font.PLAIN, 13));
 		GridBagConstraints gbc_windSpeed_label = new GridBagConstraints();

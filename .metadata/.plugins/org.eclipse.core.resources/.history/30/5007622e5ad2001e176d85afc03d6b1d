@@ -1,0 +1,42 @@
+package DbAccess;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class GetDataFromDB {
+
+	private static final String url = "jdbc:mysql://127.0.0.1:3306/";
+	private static final String dbName = "weatherapp";
+	private static final String driver = "com.mysql.cj.jdbc.Driver";
+	private static final String username = "root";
+	private static final String password = getPassword();
+	
+	
+	
+	
+	private static String getPassword() {
+		
+		String pw = null;
+		
+		File tf = new File ("/PWF");
+		
+		try {
+			
+			Scanner scanner = new Scanner(tf);
+			
+			if(scanner.hasNext()) pw = scanner.next();
+			
+		}catch(FileNotFoundException fileNotFound) {
+			
+			System.out.println(fileNotFound.getMessage());
+			
+		}catch (Exception exception) {
+			
+			System.out.println(exception.getMessage());
+			
+		}
+		
+		
+	}
+}

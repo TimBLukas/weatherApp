@@ -1,0 +1,14 @@
+package Objects;
+
+public class User {
+
+	private String userID;
+	private String userName;
+	private String EncryptedPW;
+	private String referencedTable;
+	
+	
+	public User
+	
+	
+}

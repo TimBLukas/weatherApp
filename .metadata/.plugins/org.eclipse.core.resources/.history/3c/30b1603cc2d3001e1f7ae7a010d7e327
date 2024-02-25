@@ -1,0 +1,148 @@
+package DbAccess;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
+import Objects.User;
+
+/**
+ * Diese Klasse dient dazu Informationen aus der Datenbank Tabell tusers auszulesen
+ * @author TBL
+ * @version 1.0
+ */
+public class GetDataFromDB {
+
+	private static String dbName = "weatherapp";
+	private static String url = "jdbc:mysql://127.0.0.1:3306/" + dbName + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	private static String driver = "com.mysql.cj.jdbc.Driver";
+	private static String username = "root";
+	private static String password;
+	
+	static {
+	    password = getPassword();
+	    if (password.equals("ERROR")) {
+	        JOptionPane.showMessageDialog(null, "Fehler beim Abrufen der Daten", "ERROR", JOptionPane.ERROR_MESSAGE);
+	    }
+	}
+	
+	
+	public static void main(String[] args) {
+		List<User> nutzer = getSavedUsers();
+		for(User u : nutzer) u.getUserName();
+	}
+	/**
+	 * Methode um alle in der Datenbank gespeicherten Nutzer zu erhalten
+	 * @return eine Liste aller gespeicherten Nutzer
+	 */
+	public static List<User> getSavedUsers(){
+		
+		List<User> users = new ArrayList<>();
+		
+		try {
+			
+			Connection connection = establishConnection();
+		
+			Statement statement = connection.createStatement();
+			
+			ResultSet rs;
+			rs = statement.executeQuery("SELECT * FROM weatherApp.tusers");
+			
+			while(rs.next()) {
+				
+				int userID = rs.getInt("idUsers");
+				String userName = rs.getString("UserName");
+				String pw = rs.getString("EcryptedPw");
+				
+				User neuerUser = new User(userID, userName, pw);
+				users.add(neuerUser);
+			}
+			try {
+				
+				if(connection != null) connection.close();
+				if(statement != null) statement.close();
+				if(rs != null) rs.close();
+				
+			}catch(SQLException e) {
+				
+				e.printStackTrace();
+				
+			}
+			
+		}catch(SQLException e) 
+		{
+			System.out.println(e.getStackTrace());
+			
+		}
+		
+		return users;
+		
+	}
+	
+	/**
+	 * Methode mit der eine Verbindung zur Datenbank hergestellt werden kann
+	 * 
+	 * @return liefert eine Verbindung zur Datenbank zurück
+	 * 
+	 */
+	public static Connection establishConnection() {
+		
+		Connection connection = null;
+		
+		try
+		{
+
+			Class.forName(driver);
+				
+			connection = DriverManager.getConnection(url + dbName, username, password);
+			
+			
+		}catch(Exception e) 
+		{
+			System.out.println(e.getMessage());
+			
+		}
+		
+		return connection;
+	}
+	
+	/**
+	 * Methode mit der das Passwort ausgelesen werden kann 
+	 * @return liefert das Passwort zurück
+	 */
+	
+	private static String getPassword() {
+		
+		String pw = null;
+		
+		File tf = new File ("../weather/src/DbAccess/PWF");
+		
+		try {
+			
+			Scanner scanner = new Scanner(tf);
+			if(scanner.hasNext()) pw = scanner.nextLine();
+			
+		}catch(FileNotFoundException fileNotFound) {
+			
+			System.out.println(fileNotFound.getMessage());
+			
+		}catch (Exception exception) {
+			
+			System.out.println(exception.getMessage());
+			
+		}
+		
+		if(pw == null) return "ERROR";
+		
+		return pw;
+	}
+}
