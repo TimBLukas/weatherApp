@@ -26,7 +26,7 @@ public class test extends JPanel {
 	
 	public static void main(String []args) {
 		
-		Map<String, Object> weatherTest = weatherInformation.getWeatherInformation("DE","Bietigheim-Bissingen");
+		Map<String, Object> weatherTest = weatherInformation.getWeatherInformation("GB","Birmingham");
 		
 		System.out.println(weatherTest);
 		

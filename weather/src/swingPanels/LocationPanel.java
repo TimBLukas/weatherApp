@@ -2,10 +2,13 @@ package swingPanels;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout.Alignment;
@@ -34,24 +37,23 @@ public class LocationPanel {
 		
 		JPanel locationPanel = null;
 		
-		try {
-			locationPanel = new JPanelMitBackground(CommonConstants.MAINBACKGROUND);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		locationPanel = new JPanel();
+		locationPanel.setBackground(Color.WHITE);
 		
 		JPanel weatherInformation_panel = new JPanel();
 		weatherInformation_panel.setBackground(Color.BLACK);
 		
 		JLabel locationName_label = new JLabel(city + " - " + country);
 		locationName_label.setFont(new Font("Arial Black", Font.PLAIN, 20));
-		locationName_label.setForeground(Color.WHITE);
+		locationName_label.setForeground(Color.BLACK);
 		locationName_label.setFont(new Font("Arial Black", Font.PLAIN, 20));
 		
-		JLabel weatherImage_label = new JLabel("weatherImage");
+		ImageIcon weatherImage = new ImageIcon(getFittingWeatherImage( (String) weatherInformation.get("description"))); 
+		JLabel weatherImage_label = new JLabel("");
 		weatherImage_label.setFont(new Font("Arial", Font.PLAIN, 11));
 		weatherImage_label.setForeground(Color.WHITE);
 		weatherImage_label.setFont(new Font("Arial", Font.PLAIN, 11));
+		weatherImage_label.setIcon(weatherImage);
 		
 		JCheckBox favorite_checkbox = new JCheckBox("save as favorite");
 		favorite_checkbox.setFont(new Font("Arial Black", Font.PLAIN, 12));
@@ -61,50 +63,53 @@ public class LocationPanel {
 		
 		GroupLayout groupLayout = new GroupLayout(locationPanel);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(273, Short.MAX_VALUE)
-					.addComponent(weatherInformation_panel, GroupLayout.PREFERRED_SIZE, 353, GroupLayout.PREFERRED_SIZE)
-					.addGap(74))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(51)
+					.addGap(49)
 					.addComponent(weatherImage_label)
-					.addContainerGap(580, Short.MAX_VALUE))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addGap(75)
-					.addComponent(locationName_label, GroupLayout.PREFERRED_SIZE, 291, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
-					.addComponent(favorite_checkbox)
+					.addContainerGap(626, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(weatherInformation_panel, GroupLayout.PREFERRED_SIZE, 353, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(75)
+							.addComponent(locationName_label, GroupLayout.PREFERRED_SIZE, 291, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
+							.addComponent(favorite_checkbox)))
 					.addGap(26))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 					.addGap(42)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(locationName_label)
 						.addComponent(favorite_checkbox))
-					.addGap(78)
+					.addGap(36)
 					.addComponent(weatherImage_label)
-					.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+					.addGap(18)
 					.addComponent(weatherInformation_panel, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
-					.addGap(75))
+					.addContainerGap(187, Short.MAX_VALUE))
 		);
 		GridBagLayout gbl_weatherInformation_panel = new GridBagLayout();
 		gbl_weatherInformation_panel.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_weatherInformation_panel.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_weatherInformation_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
 		gbl_weatherInformation_panel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_weatherInformation_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_weatherInformation_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		weatherInformation_panel.setLayout(gbl_weatherInformation_panel);
 		
 		 Object temperature = null;
 		 Object feelsLike = null;
 		 Object windSpeed = null;
+		 Object description = null;
 		
 		try {
 			temperature = weatherInformation.get("current temp");
 			feelsLike = weatherInformation.get("feels_like");
 			windSpeed = weatherInformation.get("wind Speed");
+			description = weatherInformation.get("description");
 		}catch(Exception exception) {
 			
 			System.out.println(exception.getMessage());
@@ -136,14 +141,41 @@ public class LocationPanel {
 		windSpeed_label.setForeground(Color.WHITE);
 		windSpeed_label.setFont(new Font("Arial Black", Font.PLAIN, 13));
 		GridBagConstraints gbc_windSpeed_label = new GridBagConstraints();
+		gbc_windSpeed_label.insets = new Insets(0, 0, 5, 0);
 		gbc_windSpeed_label.anchor = GridBagConstraints.WEST;
 		gbc_windSpeed_label.gridx = 2;
 		gbc_windSpeed_label.gridy = 3;
 		weatherInformation_panel.add(windSpeed_label, gbc_windSpeed_label);
+		
+		JLabel description_label = new JLabel("Description: " + "\t" + description);
+		description_label.setForeground(Color.WHITE);
+		description_label.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		GridBagConstraints gbc_description_label = new GridBagConstraints();
+		gbc_description_label.gridx = 2;
+		gbc_description_label.gridy = 4;
+		weatherInformation_panel.add(description_label, gbc_description_label);
 		locationPanel.setLayout(groupLayout);
 		
 		
 		return locationPanel;
 		
+	}
+	
+	private static String getFittingWeatherImage(String description) {
+		
+		Map <String, String> weatherToFileAdress = new HashMap<>();
+		
+		weatherToFileAdress.put("clear sky", CommonConstants.SONNE_IMAGE);
+		weatherToFileAdress.put("rain", CommonConstants.REGEN_IMAGE);
+		weatherToFileAdress.put("light rain", CommonConstants.REGEN_IMAGE);
+		weatherToFileAdress.put("few clouds", CommonConstants.WOLKE_IMAGE);
+		weatherToFileAdress.put("sun", CommonConstants.SONNE_IMAGE);
+		weatherToFileAdress.put("overcast clouds", CommonConstants.WOLKE_IMAGE);
+		weatherToFileAdress.put("broken clouds", CommonConstants.WOLKE_IMAGE);
+		weatherToFileAdress.put("mist", CommonConstants.NEBEL_IMAGE);
+		weatherToFileAdress.put("scattered clouds", CommonConstants.WOLKE_IMAGE);
+
+		
+		return weatherToFileAdress.get(description);
 	}
 }

@@ -41,21 +41,6 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 	private JPanel mainPanel_1;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainFrame frame = new MainFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -255,6 +240,15 @@ public class MainFrame extends JFrame {
 		gbc_logoutButton.fill = GridBagConstraints.BOTH;
 		gbc_logoutButton.gridx = 1;
 		gbc_logoutButton.gridy = 0;
+		
+		logoutButton.addActionListener(e -> {
+			
+			dispose();
+			JFrame frame = new LoginFrame();
+			frame.setVisible(true);
+			
+		});
+		
 		bottomPanel.add(logoutButton, gbc_logoutButton);
 		
 		

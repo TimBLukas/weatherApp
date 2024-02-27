@@ -5,4 +5,11 @@ public class CommonConstants {
 	public static final String LOGINBACKGROUND = "E:/Coding_Projects/WeatherApp/Images/LoginBackground.jpg";
 	public static final String MAINBACKGROUND = "E:/Coding_Projects/WeatherApp/Images/MainPanelBackground_MainFrame.jpg";
 	
+	public static final String GEWITTER_IMAGE = "E:/Coding_Projects/WeatherApp/Images/gewitter.png";
+	public static final String REGEN_IMAGE = "E:/Coding_Projects/WeatherApp/Images/RegenImage.png";
+	public static final String SONNE_IMAGE = "E:/Coding_Projects/WeatherApp/Images/sonne.png";
+	public static final String SONNE_BEWÖLKT_IMAGE = "E:/Coding_Projects/WeatherApp/Images/sonneMitWolke.png";
+	public static final String WOLKE_IMAGE = "E:/Coding_Projects/WeatherApp/Images/wolken.png";
+	public static final String NEBEL_IMAGE = "E:/Coding_Projects/WeatherApp/Images/nebel.png";
+	
 }

@@ -40,23 +40,7 @@ public class RegistrierenFrame extends JFrame {
 	static JButton registrieren_Button;
 	private static JFrame frame;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					
-					frame = new RegistrierenFrame();
-					frame.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
@@ -194,7 +178,7 @@ public class RegistrierenFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				frame.dispose();
+				dispose();
 				frame = new LoginFrame();
 				frame.setVisible(true);	
 				

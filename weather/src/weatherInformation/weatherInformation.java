@@ -95,23 +95,31 @@ public class weatherInformation {
 			Map<String, Object> respMap = jsonToMap(result.toString());
 			System.out.println(respMap);
 			
-			Object weatherObject = respMap.get("weather");
-			List<Map<String, Object>> weatherList = new ArrayList<>();
-			
-			if (weatherObject instanceof Object[]) {
-	            Object[] weatherArray = (Object[]) weatherObject;
-	            for (Object obj : weatherArray) {
-	                if (obj instanceof Map) {
-	                    Map<String, Object> weatherMap = (Map<String, Object>) obj;
-	                    weatherList.add(weatherMap);
-	                }
+			// Zugriff auf das weather-Array
+	        Object weatherObj = respMap.get("weather");
+	        String description = "";
+	        
+	        if (weatherObj instanceof List) {
+	            List<Map<String, Object>> weatherList = (List<Map<String, Object>>) weatherObj;
+	            if (!weatherList.isEmpty()) {
+	            	
+	                Map<String, Object> weatherInformation = weatherList.get(0);
+
+	                // Zugriff auf description
+	                System.out.println((String) weatherInformation.get("description"));
+	                description = (String) weatherInformation.get("description");
+	            } else {
+	                System.out.println("Weather-Liste ist leer.");
 	            }
+	        } else {
+	            System.out.println("Weather-Objekt ist kein List-Objekt.");
 	        }
+			
 			
 			Map<String, Object> mainMap = jsonToMap(respMap.get("main").toString());
 			Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
 			
-			if(weatherList.size() > 0) weatherData.put("weather", weatherList.get(0));
+			weatherData.put("description", description);
 			
 			weatherData.put("current temp", mainMap.get("temp"));
 			
